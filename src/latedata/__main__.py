@@ -19,6 +19,7 @@ def main() -> None:
     print("   compared on windows ending by minute 30, which every setting has closed by the end")
     print(pd.DataFrame(rows).to_string(index=False))
     print("\n== the sink writes, then the job dies before Spark commits the batch; restart from the checkpoint")
+    spark.sparkContext.setLogLevel("OFF")  # the crash is deliberate; its stack trace is noise here
     print(pd.DataFrame([crash_and_restart(spark, False), crash_and_restart(spark, True)]).to_string(index=False))
 
 
